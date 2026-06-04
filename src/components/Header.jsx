@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 const Header = () => {
   return (
-    <header className="bg-light-neutral-100 backdrop-blur-md shadow-xs sticky top-0 z-50 border-b border-light-neutral-200">
+    <header className="bg-light-neutral-0 backdrop-blur-md shadow-xs sticky top-0 z-50 border-b border-light-neutral-200">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* logo */}
         <Link

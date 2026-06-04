@@ -20,7 +20,7 @@ const Hero = () => {
           <img
             src="/image/hero.jpg"
             alt=""
-            className="w-full h-[500px] object-cover  rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-white border-6"
+            className="w-full h-170 object-cover  rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-white border-6"
           />
         </div>
       </div>
