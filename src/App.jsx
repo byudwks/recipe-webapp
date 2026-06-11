@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import RecipesPage from "./pages/RecipesPage";
 import AboutPage from "./pages/AboutPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

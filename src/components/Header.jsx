@@ -12,7 +12,7 @@ const Header = () => {
           <img src="/image/logo.svg" alt="Logo" className="h-10 w-23" />
         </Link>
 
-        <nav className="hidden md:flex space-x-8 items-center">
+        <nav className="hidden md:flex space-x-8 items-center font-nunito">
           <Link
             to="/"
             className=" relative text-gray-neutral-600 pb-1 transition-all hover:text-primary duration-300 group">

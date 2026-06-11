@@ -13,7 +13,7 @@ const Hero = () => {
           no precessed junk, no gueswork, simple, delicius, and healthy
         </p>
         <button className="bg-primary text-light-neutral-0 px-10 py-3.5 rounded-2xl text-lg sm:text-xl font-semibold hover:bg-secondary transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
-          Star Exploring
+          Start Exploring
         </button>
 
         <div className="mt-16 w-full">
