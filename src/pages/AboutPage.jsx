@@ -56,6 +56,52 @@ const AboutPage = () => {
               </p>
             </div>
           </div>
+          <div className="ralative">
+            <img
+              src="/image/image-3.jpg"
+              alt=""
+              className="rounded-3xl shadow-xl"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Value Section */}
+      <section className="py-20 bg-white font-nunito">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold text-primary "> Our Values</h2>
+          <div className="grid grid-cols-3 gap-8">
+            {/* use map method */}
+            <div className="bg-neutral-50 p-8 rounded-3xl shadow-md hover:shadow-lg transition">
+              <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
+                Icon
+              </div>
+              <h2 className="text-2xl font-bold text-primary ">Value Title</h2>
+              <p className="text-gray-950 ">Value Description</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-20 lg:py-32 bg-neutral-50 font-nunito ">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-4xl font-bold text-primary mb-10 ">
+            Meet Our Team
+          </h3>
+          <div className="grid md:grid-cols-3 gap-10 ">
+            {/* use map method */}
+            <div className="group">
+              <img
+                src=""
+                alt=""
+                className="w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg mx-auto mb-4 "
+              />
+              <h3 className="text-2xl font-bold text-primary ">Member Name</h3>
+              <p className="text-secondary">Member Role</p>
+              <p className="text-gray-500">Member Bio</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
