@@ -1,4 +1,6 @@
+import { RefreshCcw } from "lucide-react";
 import React from "react";
+import FilterBar from "../components/FilterBar";
 
 const RecipesPage = () => {
   return (
@@ -12,6 +14,22 @@ const RecipesPage = () => {
           lifestyle. Search by name, ingredient, or explore by category - find
           yout next favorite dsih !
         </p>
+        <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-10 ">
+          {/* contional redndering */}
+          <div className="mt-8 p-8 bg-red-50 border border-red-200 rounded-2xl inline-blok">
+            <p className="text-red-600">Error</p>
+            <button className="mt-4 inline-flex items-center px-6 py-3 bg-secondary text-white rounded-xl hover:bg-orange-400 transition-all duration-300 font-semibold ">
+              <RefreshCcw className="w-4 h-4 mr-2" />
+            </button>
+          </div>
+        </div>
+
+        {/* Filter Bar */}
+        <div className="py-6">
+          <div className="container mx-auto px-4">
+            <FilterBar />
+          </div>
+        </div>
       </div>
     </div>
   );
