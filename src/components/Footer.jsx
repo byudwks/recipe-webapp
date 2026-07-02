@@ -3,7 +3,7 @@ import { RiInstagramLine, RiTwitterLine, RiYoutubeLine } from "react-icons/ri";
 
 const Footer = () => {
   return (
-    <footer className="bg-light-neutral-100 py-6 font-nunito">
+    <footer className="bg-light-neutral-100 py-6 font-nunito border-t border-light-neutral-200">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="text-center md:text-left">

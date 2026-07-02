@@ -36,6 +36,9 @@ const RecipesCard = () => {
             </div>
           </div>
         </div>
+        <button className="w-full bg-primary text-white py-4 rounded-2xl font-semibold hover:from-orange-600 hover:to-orange-300 transition-all duration-300 shadow-lg hover:shadow-xl ">
+          View Recipes
+        </button>
       </div>
     </div>
   );
