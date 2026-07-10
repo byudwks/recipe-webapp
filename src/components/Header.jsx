@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { RiCloseFill } from "react-icons/ri";
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
   return (
     <header className="bg-light-neutral-0 backdrop-blur-md shadow-xs sticky top-0 z-50 border-b border-light-neutral-200 font-nunito">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -38,36 +41,44 @@ const Header = () => {
           className="hidden md:block bg-secondary text-light-neutral-0 px-8 py-3 rounded-xl hover:bg-primary transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105">
           Broswer Recipes
         </Link>
-        <button className="md:hidden p-2 text-gray-600 hover:text-gray-800 transition-all">
-          <Menu />
+        <button
+          className="md:hidden p-2 text-gray-600 hover:text-gray-800 transition-all duration-300 ease-in-out "
+          onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? (
+            <RiCloseFill className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
       {/* mobile menu */}
-      <div className="md:hidden bg-light-neutral-100 border-t border-light-neutral-200 shadwo-sm">
-        <nav className="flex flex-col space-y-1 p-3 font-nunito">
-          <Link
-            to="/"
-            className="text-gray-700 hover:text-primary transition-all text-left borfer-b border-transparent hover:bg-primary pb-1">
-            Home
-          </Link>
-          <Link
-            to="/recipes"
-            className="text-gray-700 hover:text-primary transition-all text-left borfer-b border-transparent hover:bg-primary pb-1">
-            Recipes
-          </Link>
-          <Link
-            to="/about"
-            className="text-gray-700 hover:text-primary transition-all text-left borfer-b border-transparent hover:bg-primary pb-1">
-            About
-          </Link>
-          <Link
-            to="/recipes"
-            className=" md:block bg-secondary text-light-neutral-0 px-3 py-2 rounded-xl hover:bg-primary transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 text-center">
-            Broswer Recipes
-          </Link>
-        </nav>
-      </div>
+      {isMenuOpen && (
+        <div className="md:hidden bg-light-neutral-100 border-t border-light-neutral-200 shadwo-sm">
+          <nav className="flex flex-col space-y-1 p-3 font-nunito">
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-primary transition-all text-left borfer-b border-transparent hover:bg-primary pb-1">
+              Home
+            </Link>
+            <Link
+              to="/recipes"
+              className="text-gray-700 hover:text-primary transition-all text-left borfer-b border-transparent hover:bg-primary pb-1">
+              Recipes
+            </Link>
+            <Link
+              to="/about"
+              className="text-gray-700 hover:text-primary transition-all text-left borfer-b border-transparent hover:bg-primary pb-1">
+              About
+            </Link>
+            <Link
+              to="/recipes"
+              className=" md:block bg-secondary text-light-neutral-0 px-3 py-2 rounded-xl hover:bg-primary transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 text-center">
+              Broswer Recipes
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
