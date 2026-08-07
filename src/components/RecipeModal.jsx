@@ -52,7 +52,7 @@ const RecipeModal = () => {
               <div className="space-y-3">
                 {/* i Will use map Method */}
                 <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 shrink-0"></div>
                   <span className="text-gray-700 ">Ingredients</span>
                 </div>
               </div>
@@ -64,7 +64,7 @@ const RecipeModal = () => {
               <div>
                 {/* i will use map method */}
                 <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                  <div className="w-6 h-6 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shrink-0">
                     Index
                   </div>
                   <p className="text-gray-700 leading-relaxed">Intructions</p>
