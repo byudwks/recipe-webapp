@@ -38,7 +38,7 @@ const RecipesPage = () => {
       </div>
 
       {/* Recipes Modal */}
-      <RecipeModal />
+      {/* <RecipeModal /> */}
     </div>
   );
 };
