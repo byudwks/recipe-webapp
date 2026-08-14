@@ -1,7 +1,6 @@
-const BASE_URL_API_RECIPE = "www.themealdb.com/api/json/v1/1/";
+const BASE_URL_API_RECIPE = "https://www.themealdb.com/api/json/v1/1/";
 
 const cache = new Map();
-
 export const recipesApi = {
   // search recipes
   searchRecipes: async (query) => {
@@ -29,5 +28,109 @@ export const recipesApi = {
     if (cache.has(cacheKey)) {
       return cache.get(cacheKey);
     }
+    try {
+      const promises = Array.from({ length: count }, () =>
+        fetch(`${BASE_URL_API_RECIPE}random.php`).then((res) => res.json()),
+      );
+      const results = await Promise.all(promises);
+      const meals = results.map((result) => result.meals[0]).filter(Boolean);
+      cache.set(cacheKey, meals);
+      return meals;
+    } catch (error) {
+      console.log("Error fetching random recipes :", error);
+      return [];
+    }
   },
+
+  // get recipes by id
+  getRecipesById: async (id) => {
+    const cacheKey = `recipe-${id}`;
+    if (cache.has(cacheKey)) {
+      return cache.get(cacheKey);
+    }
+    try {
+      const response = await fetch(`${BASE_URL_API_RECIPE}lookup.php?i=${id}`);
+      const data = await response.json();
+      const results = data.meals?.[0] || null;
+      cache.set(cacheKey, results);
+      return results;
+    } catch (error) {
+      console.log("Error recipes Id :", error);
+      return [];
+    }
+  },
+
+  // get recipes by category
+  getRecipesByCategory: async (category) => {
+    const cacheKey = `categories`;
+    if (cache.has(cacheKey)) {
+      return cache.get(cacheKey);
+    }
+    try {
+      const response = await fetch(`${BASE_URL_API_RECIPE}categories.php`);
+      const data = await response.json();
+      const results = data.categories || [];
+      cache.set(cacheKey, results);
+      return results;
+    } catch (error) {
+      console.log("Error fetching recipes by category:", error);
+      return [];
+    }
+  },
+};
+
+// api format
+export const transformRecipeData = (recipe) => {
+  if (!recipe) return null;
+
+  const ingredients = [];
+
+  for (let i = 1; i <= 20; i++) {
+    const ingredient = recipe[`strIngredient${i}`];
+    const measure = recipe[`strMeasure${i}`];
+    if (ingredient && ingredient.trim()) {
+      ingredients.push(
+        `${measure ? measure.trim() + "" : ""} ${ingredient.trim()}`,
+      );
+    }
+  }
+
+  const instructions = recipe.strInstructions
+    ? recipe.strInstructions.split(/\r?\n/).filter((step) => step.trim())
+    : [];
+
+  const estimatedPrepTime = Math.floor(Math.random() * 15) + 5;
+  const estimatedCookTime = Math.floor(Math.random() * 25) + 10;
+
+  let category = "dinner";
+  const mealCategory = recipe.strCategory?.toLowerCase() || "";
+  if (mealCategory.includes("breakfast") || mealCategory.includes("lunch")) {
+    category = mealCategory.includes("breakfast") ? "breakfast" : "lunch";
+  } else if (
+    mealCategory.includes("side") ||
+    mealCategory.includes("starters")
+  ) {
+    category = "lunch";
+  }
+
+  return {
+    id: recipe.idMeal,
+    title: recipe.strMeal,
+    description: `Delicious ${recipe.strMeal} from ${
+      recipe.strArea || "International"
+    } cuisine`,
+    image: recipe.strMealThumb,
+    category,
+    cookTime: estimatedCookTime,
+    prepTime: estimatedPrepTime,
+    servings: Math.floor(Math.random() * 4) + 2,
+    difficulty: estimatedCookTime > 25 ? "medium" : "easy",
+    ingredients,
+    instructions,
+    tags: [
+      recipe.strArea?.toLowerCase(),
+      recipe.strCategory?.toLowerCase(),
+      "recipe",
+    ].filter(Boolean),
+  };
 };

@@ -2,7 +2,17 @@ import { ChevronDown } from "lucide-react";
 import React from "react";
 import { RiSearchLine } from "react-icons/ri";
 
-const FilterBar = () => {
+const FilterBar = ({
+  maxPrepTime,
+  setmMaxPrepTime,
+  maxCookTime,
+  setmaxCookTime,
+  searchTerm,
+  setSearchTerm,
+  onCategoryChange,
+  setSelectCategory,
+  onSearch,
+}) => {
   return (
     <div className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl mb-12 border border-orange-100">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 ">
