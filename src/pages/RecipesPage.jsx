@@ -9,7 +9,7 @@ const RecipesPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [maxPrepTime, setmMaxPrepTime] = useState(30);
   const [maxCookTime, setmaxCookTime] = useState(30);
-  const [selectCategory, setSelectCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectRecipe, setSelectRecipe] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -40,7 +40,7 @@ const RecipesPage = () => {
   };
 
   const handleCategoryChange = async (category) => {
-    setSelectCategory(category);
+    setSelectedCategory(category);
 
     if (category) {
       await fetchRecipesByCategory(category);
@@ -92,9 +92,9 @@ const RecipesPage = () => {
               setmaxCookTime={setmaxCookTime}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
-              onSearch={onSearch}
-              onCategoryChange={onCategoryChange}
-              setSelectCategory={setSelectCategory}
+              onSearch={handleSearch}
+              onCategoryChange={handleCategoryChange}
+              selectCategory={selectedCategory}
             />
           </div>
         </div>

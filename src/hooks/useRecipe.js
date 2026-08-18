@@ -48,11 +48,12 @@ export const useRecipe = () => {
       const apiRecipes = await recipesApi.getRecipesByCategory(category);
       const detailRecipes = await Promise.all(
         apiRecipes.slice(0, 8).map(async (recipe) => {
-          const detail = await recipesApi.getRecipesById(recipe.idMeal);
+          const detail = await apiRecipes.getRecipesById(recipe.idMeal);
           return transformRecipeData(detail);
         }),
+        console.log(apiRecipes),
       );
-      setRecipes(detail.filter(Boolean));
+      setRecipes(detailRecipes.filter(Boolean));
     } catch (error) {
       setError("Failed To fetch Recipes", error);
     } finally {

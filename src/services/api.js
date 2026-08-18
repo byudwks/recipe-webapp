@@ -62,19 +62,39 @@ export const recipesApi = {
 
   // get recipes by category
   getRecipesByCategory: async (category) => {
-    const cacheKey = `categories`;
+    const cacheKey = `category-${category}`;
     if (cache.has(cacheKey)) {
       return cache.get(cacheKey);
     }
     try {
-      const response = await fetch(`${BASE_URL_API_RECIPE}categories.php`);
+      const response = await fetch(
+        `${BASE_URL_API_RECIPE}filter.php?c=${encodeURIComponent(category)}`,
+      );
       const data = await response.json();
-      const results = data.categories || [];
+      const results = data.meals || [];
       cache.set(cacheKey, results);
       return results;
     } catch (error) {
-      console.log("Error fetching recipes by category:", error);
+      console.error("Error fetching recipes by category:", error);
       return [];
+    }
+  },
+
+  getCetgory: async (category) => {
+    const cacheKey = `category-${category}`;
+    if (cache.has(cacheKey)) {
+      return cache.get(cacheKey);
+    }
+    try {
+      const respon = await fetch(
+        `${BASE_URL_API_RECIPE}/filter.php?c=${category}`,
+      );
+      const data = await response.json();
+      const result = data.meals || [];
+      cache.set(cacheKey, result);
+      return result;
+    } catch {
+      console.error("tadak di metukan");
     }
   },
 };
