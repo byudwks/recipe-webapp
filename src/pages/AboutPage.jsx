@@ -1,4 +1,5 @@
 import React from "react";
+import { stats, values, team } from "../context/about";
 
 const AboutPage = () => {
   return (
@@ -21,13 +22,15 @@ const AboutPage = () => {
       {/* Stats Section */}
       <section className="py-16 bg-white font-nunito">
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-              Icons
+          {stats.map((stat) => (
+            <div>
+              <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 hover:scale-105 transition-all duration-300 cursor-pointer">
+                {stat.icon && <stat.icon className="text-white w-8 h-8" />}
+              </div>
+              <h3 className="text-2xl font-black text-primary">{stat.value}</h3>
+              <p className="text-gray-950">{stat.title}</p>
             </div>
-            <h3 className="text-3xl font-black text-primary">Stats Number</h3>
-            <p className="text-gray-950">Stats Label</p>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -69,16 +72,20 @@ const AboutPage = () => {
       {/* Value Section */}
       <section className="py-20 bg-white font-nunito">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-primary "> Our Values</h2>
+          <h2 className="text-4xl font-bold text-primary mb-15"> Our Values</h2>
           <div className="grid grid-cols-3 gap-8">
             {/* use map method */}
-            <div className="bg-neutral-50 p-8 rounded-3xl shadow-md hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
-                Icon
+            {values.map((value) => (
+              <div className="bg-neutral-50 p-8 rounded-3xl shadow-md hover:shadow-lg transition">
+                <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  {value.icon && <value.icon className="text-white w-8 h-8" />}
+                </div>
+                <h2 className="text-2xl font-bold text-primary ">
+                  {value.title}
+                </h2>
+                <p className="text-gray-950 ">{value.description}</p>
               </div>
-              <h2 className="text-2xl font-bold text-primary ">Value Title</h2>
-              <p className="text-gray-950 ">Value Description</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -91,16 +98,20 @@ const AboutPage = () => {
           </h3>
           <div className="grid md:grid-cols-3 gap-10 ">
             {/* use map method */}
-            <div className="group">
-              <img
-                src=""
-                alt=""
-                className="w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg mx-auto mb-4 "
-              />
-              <h3 className="text-2xl font-bold text-primary ">Member Name</h3>
-              <p className="text-secondary">Member Role</p>
-              <p className="text-gray-500">Member Bio</p>
-            </div>
+            {team.map((member) => (
+              <div className="group">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg mx-auto mb-4 "
+                />
+                <h3 className="text-2xl font-bold text-primary ">
+                  {member.name}
+                </h3>
+                <p className="text-secondary">{member.role}</p>
+                <p className="text-gray-500">{member.bio}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

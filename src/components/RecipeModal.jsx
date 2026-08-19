@@ -1,18 +1,21 @@
 import React from "react";
-import { RiCloseFill, RiTimerLine } from "react-icons/ri";
+import { RiCloseFill, RiTimerLine, RiUserLine } from "react-icons/ri";
 
-const RecipeModal = () => {
+const RecipeModal = ({ recipes, isOpen, onClose }) => {
+  if (!isOpen || !recipes) return null;
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto">
         <div className="relative">
           <img
-            src=""
-            alt=""
+            src={recipes.image}
+            alt="image recipes"
             className="w-full h-64 object-cover rounded-t-2xl "
           />
 
-          <button className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all duration-200">
+          <button
+            className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-all duration-200"
+            onClick={onClose}>
             <RiCloseFill className="h-5 w-5 text-gray-700" />
           </button>
         </div>
@@ -20,28 +23,32 @@ const RecipeModal = () => {
         <div className="p-8">
           <div className="mb-6">
             <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              Recipe Title
+              {recipes.title}
             </h2>
-            <p className="text-gray-600 text-lg">
-              Recipe description goes here.
-            </p>
+            <p className="text-gray-600 text-lg">{recipes.description}</p>
           </div>
 
           <div className="grid grid-cols-3 gap-4 mb-8 p-6 bg-gray-50 rounded-xl">
             <div className="text-center">
               <RiTimerLine className="h-6 w-6 text-orange-500 mx-auto mb-2" />
-              <p className="text-sm text-gray-600">Prep Time:</p>
-              <p className="text-gray-800 font-semibold">Prep Time</p> Min
+              <p className="text-sm text-gray-600">Prep Time</p>
+              <p className="text-gray-800 font-semibold">
+                {recipes.prepTime}
+              </p>{" "}
+              Min
             </div>
             <div className="text-center">
               <RiTimerLine className="h-6 w-6 text-orange-500 mx-auto mb-2" />
-              <p className="text-sm text-gray-600">Prep Time:</p>
-              <p className="text-gray-800 font-semibold">Cook Time</p> Min
+              <p className="text-sm text-gray-600">Cook Time:</p>
+              <p className="text-gray-800 font-semibold">
+                {recipes.cookTime}
+              </p>{" "}
+              Min
             </div>
             <div className="text-center">
-              <RiTimerLine className="h-6 w-6 text-orange-500 mx-auto mb-2" />
-              <p className="text-sm text-gray-600">Prep Time:</p>
-              <p className="text-gray-800 font-semibold">Prep Time</p> Min
+              <RiUserLine className="h-6 w-6 text-orange-500 mx-auto mb-2" />
+              <p className="text-sm text-gray-600">Servings:</p>
+              <p className="text-gray-800 font-semibold">{recipes.servings}</p>
             </div>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
@@ -51,10 +58,14 @@ const RecipeModal = () => {
               </h3>
               <div className="space-y-3">
                 {/* i Will use map Method */}
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
-                  <span className="text-gray-700 ">Ingredients</span>
-                </div>
+                {recipes.ingredients.map((item, index) => {
+                  return (
+                    <div className="flex items-start space-x-3">
+                      <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 shrink-0"></div>
+                      <span className="text-gray-700">{item}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div>
@@ -63,12 +74,16 @@ const RecipeModal = () => {
               </h3>
               <div>
                 {/* i will use map method */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">
-                    Index
-                  </div>
-                  <p className="text-gray-700 leading-relaxed">Intructions</p>
-                </div>
+                {recipes.instructions.map((item, index) => {
+                  return (
+                    <div className="flex items-start space-x-4">
+                      <div className="w-6 h-6 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm font-semibold shrink-0">
+                        {index + 1}
+                      </div>
+                      <p className="text-gray-700 leading-relaxed">{item}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -78,9 +93,13 @@ const RecipeModal = () => {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {/* i will use map method */}
-                <span className="px-3 py-1 bg-orange-100 text-orange-600 text-sm font-medium rounded-full">
-                  #Tags
-                </span>
+                {recipes.tags.map((item) => {
+                  return (
+                    <span className="px-3 py-1 bg-orange-100 text-orange-600 text-sm font-medium rounded-full">
+                      {item}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           </div>
