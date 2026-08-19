@@ -22,7 +22,7 @@ const RecipeGrid = ({ recipes, onViewRecipe, isLoading }) => {
     );
   }
 
-  if (recipes.length === 0) {
+  if (!recipes || recipes.length === 0) {
     return (
       <div className="text-center py-16">
         <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -42,7 +42,13 @@ const RecipeGrid = ({ recipes, onViewRecipe, isLoading }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {/* conditional rendering */}
       {recipes.map((item) => {
-        return <RecipesCard recipe={item} onViewRecipe={onViewRecipe} />;
+        return (
+          <RecipesCard
+            key={item.id}
+            recipe={item}
+            onViewRecipe={onViewRecipe}
+          />
+        );
       })}
     </div>
   );

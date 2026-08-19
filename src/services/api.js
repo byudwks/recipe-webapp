@@ -1,4 +1,4 @@
-const BASE_URL_API_RECIPE = "https://www.themealdb.com/api/json/v1/1/";
+const BASE_URL_API_RECIPE = "https://www.themealdb.com/api/json/v1/1";
 
 const cache = new Map();
 export const recipesApi = {
@@ -10,7 +10,7 @@ export const recipesApi = {
     }
     try {
       const respone = await fetch(
-        `${BASE_URL_API_RECIPE}search.php?s=${query}`,
+        `${BASE_URL_API_RECIPE}/search.php?s=${query}`,
       );
       const data = await respone.json();
       const result = data.meals || [];
@@ -30,7 +30,7 @@ export const recipesApi = {
     }
     try {
       const promises = Array.from({ length: count }, () =>
-        fetch(`${BASE_URL_API_RECIPE}random.php`).then((res) => res.json()),
+        fetch(`${BASE_URL_API_RECIPE}/random.php`).then((res) => res.json()),
       );
       const results = await Promise.all(promises);
       const meals = results.map((result) => result.meals[0]).filter(Boolean);
@@ -49,31 +49,29 @@ export const recipesApi = {
       return cache.get(cacheKey);
     }
     try {
-      const response = await fetch(`${BASE_URL_API_RECIPE}lookup.php?i=${id}`);
+      const response = await fetch(`${BASE_URL_API_RECIPE}/lookup.php?i=${id}`);
       const data = await response.json();
-      const results = data.meals?.[0] || null;
-      cache.set(cacheKey, results);
-      return results;
+      const result = data.meals?.[0] || null;
+      cache.set(cacheKey, result);
+      return result;
     } catch (error) {
       console.log("Error recipes Id :", error);
       return [];
     }
   },
 
-  // get recipes by category
-  getRecipesByCategory: async (category) => {
-    const cacheKey = `category-${category}`;
+  // get all category
+  getRecipesByCategory: async () => {
+    const cacheKey = `categories`;
     if (cache.has(cacheKey)) {
       return cache.get(cacheKey);
     }
     try {
-      const response = await fetch(
-        `${BASE_URL_API_RECIPE}filter.php?c=${encodeURIComponent(category)}`,
-      );
+      const response = await fetch(`${BASE_URL_API_RECIPE}/categories.php`);
       const data = await response.json();
-      const results = data.meals || [];
-      cache.set(cacheKey, results);
-      return results;
+      const result = data.categories || [];
+      cache.set(cacheKey, result);
+      return result;
     } catch (error) {
       console.error("Error fetching recipes by category:", error);
       return [];
@@ -86,7 +84,7 @@ export const recipesApi = {
       return cache.get(cacheKey);
     }
     try {
-      const respon = await fetch(
+      const response = await fetch(
         `${BASE_URL_API_RECIPE}/filter.php?c=${category}`,
       );
       const data = await response.json();
@@ -100,14 +98,14 @@ export const recipesApi = {
 };
 
 // api format
-export const transformRecipeData = (recipe) => {
-  if (!recipe) return null;
+export const transformRecipeData = (recipesApi) => {
+  if (!recipesApi) return null;
 
   const ingredients = [];
 
   for (let i = 1; i <= 20; i++) {
-    const ingredient = recipe[`strIngredient${i}`];
-    const measure = recipe[`strMeasure${i}`];
+    const ingredient = recipesApi[`strIngredient${i}`];
+    const measure = recipesApi[`strMeasure${i}`];
     if (ingredient && ingredient.trim()) {
       ingredients.push(
         `${measure ? measure.trim() + "" : ""} ${ingredient.trim()}`,
@@ -115,15 +113,15 @@ export const transformRecipeData = (recipe) => {
     }
   }
 
-  const instructions = recipe.strInstructions
-    ? recipe.strInstructions.split(/\r?\n/).filter((step) => step.trim())
+  const instructions = recipesApi.strInstructions
+    ? recipesApi.strInstructions.split(/\r?\n/).filter((step) => step.trim())
     : [];
 
   const estimatedPrepTime = Math.floor(Math.random() * 15) + 5;
   const estimatedCookTime = Math.floor(Math.random() * 25) + 10;
 
   let category = "dinner";
-  const mealCategory = recipe.strCategory?.toLowerCase() || "";
+  const mealCategory = recipesApi.strCategory?.toLowerCase() || "";
   if (mealCategory.includes("breakfast") || mealCategory.includes("lunch")) {
     category = mealCategory.includes("breakfast") ? "breakfast" : "lunch";
   } else if (
@@ -134,12 +132,12 @@ export const transformRecipeData = (recipe) => {
   }
 
   return {
-    id: recipe.idMeal,
-    title: recipe.strMeal,
-    description: `Delicious ${recipe.strMeal} from ${
-      recipe.strArea || "International"
+    id: recipesApi.idMeal,
+    title: recipesApi.strMeal,
+    description: `Delicious ${recipesApi.strMeal} from ${
+      recipesApi.strArea || "International"
     } cuisine`,
-    image: recipe.strMealThumb,
+    image: recipesApi.strMealThumb,
     category,
     cookTime: estimatedCookTime,
     prepTime: estimatedPrepTime,
@@ -148,8 +146,8 @@ export const transformRecipeData = (recipe) => {
     ingredients,
     instructions,
     tags: [
-      recipe.strArea?.toLowerCase(),
-      recipe.strCategory?.toLowerCase(),
+      recipesApi.strArea?.toLowerCase(),
+      recipesApi.strCategory?.toLowerCase(),
       "recipe",
     ].filter(Boolean),
   };

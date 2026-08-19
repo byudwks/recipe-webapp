@@ -10,7 +10,6 @@ export const useRecipe = () => {
     try {
       setLoading(true);
       setError(null);
-
       const data = await recipesApi.getRandomRecipes();
       const transformedData = data.map(transformRecipeData).filter(Boolean);
       setRecipes(transformedData);
@@ -22,7 +21,7 @@ export const useRecipe = () => {
     }
   };
 
-  const searchRecipes = async () => {
+  const searchRecipes = async (searchTerm) => {
     if (!searchTerm.trim()) {
       await fetchRandomRecipes();
       return;
@@ -32,7 +31,6 @@ export const useRecipe = () => {
       setError(null);
       const data = await recipesApi.searchRecipes(searchTerm);
       const transformedData = data.map(transformRecipeData).filter(Boolean);
-
       setRecipes(transformedData);
     } catch (error) {
       setError("Failed To fetch Recipes", error);
@@ -45,13 +43,12 @@ export const useRecipe = () => {
     try {
       setLoading(true);
       setError(null);
-      const apiRecipes = await recipesApi.getRecipesByCategory(category);
+      const apiRecipes = await recipesApi.getCetgory(category);
       const detailRecipes = await Promise.all(
         apiRecipes.slice(0, 8).map(async (recipe) => {
-          const detail = await apiRecipes.getRecipesById(recipe.idMeal);
+          const detail = await recipesApi.getRecipesById(recipe.idMeal);
           return transformRecipeData(detail);
         }),
-        console.log(apiRecipes),
       );
       setRecipes(detailRecipes.filter(Boolean));
     } catch (error) {

@@ -24,9 +24,7 @@ const categories = [
   { value: "Breakfast", label: "Breakfast" },
   { value: "Chicken", label: "Chicken" },
   { value: "Dessert", label: "Dessert" },
-  { value: "Goat", label: "Goat" },
   { value: "Lamb", label: "Lamb" },
-  { value: "Miscellaneous", label: "Miscellaneous" },
   { value: "Pasta", label: "Pasta" },
   { value: "Pork", label: "Pork" },
   { value: "Seafood", label: "Seafood" },
@@ -62,8 +60,10 @@ const FilterBar = ({
               {/* conditional rendering */}
               {categories.map((item) => {
                 return (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
+                  <option
+                    key={item.idCategory || item.value}
+                    value={item.strCategory || item.value}>
+                    {item.strCategory || item.label}
                   </option>
                 );
               })}
