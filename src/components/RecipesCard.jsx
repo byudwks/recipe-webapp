@@ -23,20 +23,22 @@ const RecipesCard = ({ recipe, onViewRecipe }) => {
         <div className="flex items-center justify-between mb-4 text-[10px] text-gray-500">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
-              <RiUserLine className="w-[10px] h-[10px]" />
-              <span className="">Serv: {recipe.servings}</span>
+              <RiUserLine className="w-2.5 h-2.5" />
+              <span className="font-bold">Serv: {recipe.servings}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <RiTimeLine className="w-[10px] h-[10px]" />
-              <span className="">Prep: {recipe.prepTime} min</span>
+              <RiTimeLine className="w-2.5 h-2.5" />
+              <span className="font-bold">Prep: {recipe.prepTime} min</span>
             </div>
             <div className="flex items-center space-x-1">
-              <RiTimeLine className="w-[10px] h-[10px]" />
-              <span className="">Cook: {recipe.cookTime} min</span>
+              <RiTimeLine className="w-2.5 h-2.5" />
+              <span className="font-bold">Cook: {recipe.cookTime} min</span>
             </div>
           </div>
         </div>
-        <button className="w-full bg-primary text-white py-4 rounded-2xl font-semibold hover:from-orange-600 hover:to-orange-300 transition-all duration-300 shadow-lg hover:shadow-xl " onClick={() => onViewRecipe(recipe)}>
+        <button
+          className="w-full bg-primary text-white py-4 rounded-2xl font-semibold hover:from-orange-600 hover:to-orange-300 transition-all duration-300 shadow-lg hover:shadow-xl "
+          onClick={() => onViewRecipe(recipe)}>
           View Recipes
         </button>
       </div>
